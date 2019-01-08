@@ -1,0 +1,1629 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Before you turn this problem in, make sure everything runs as expected.
+First, \textbf{restart the kernel} (in the menubar, select
+Kernel\(\rightarrow\)Restart) and then \textbf{run all cells} (in the
+menubar, select Cell\(\rightarrow\)Run All).
+
+Make sure you fill in any place that says \texttt{YOUR\ CODE\ HERE} or
+"YOUR ANSWER HERE", as well as your name and collaborators below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{NAME} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Xiong Qiao}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{COLLABORATORS} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Zhe Zheng}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{Homework 2: Bike Sharing}\label{homework-2-bike-sharing}
+
+\subsection{EDA and Visualization}\label{eda-and-visualization}
+
+\subsection{Due Date: Tuesday 9/25, 11:59
+PM}\label{due-date-tuesday-925-1159-pm}
+
+\subsection{Course Policies}\label{course-policies}
+
+Here are some important course policies. These are also located at
+http://www.ds100.org/fa18/.
+
+\textbf{Collaboration Policy}
+
+Data science is a collaborative activity. While you may talk with others
+about the homework, we ask that you \textbf{write your solutions
+individually}. If you do discuss the assignments with others please
+\textbf{include their names} at the top of your solution.
+
+\subsection{Introduction}\label{introduction}
+
+This assignment includes both specific tasks to perform and open-ended
+questions to investigate. The open-ended questions ask you to think
+creatively and critically about how the plots you have created provide
+insight into the data.
+
+After completing this assignment, you should be comfortable with:
+
+\begin{itemize}
+\tightlist
+\item
+  reading plaintext delimited data into \texttt{pandas}
+\item
+  wrangling data for analysis
+\item
+  using EDA to learn about your data
+\item
+  making informative plots
+\end{itemize}
+
+\subsection{Grading}\label{grading}
+
+Grading is broken down into autograded answers and free response.
+
+For autograded answers, the results of your code are compared to public
+and/or hidden tests.
+
+For free response, readers will evaluate how well you answered the
+question and/or fulfilled the requirements of the question.
+
+For plots, your plots should be \emph{similar} to the given examples. We
+will tolerate small variations such as color differences or slight
+variations in scale. However it is in your best interest to make the
+plots as similar as possible as similarity is subject to the readers.
+
+\textbf{Note that for ALL plotting questions from here on out, we will
+expect appropriate titles, axis labels, legends, etc. The following
+question serves as a good guideline on what is "enough": If I directly
+downloaded the plot and viewed it, would I be able to tell what was
+being visualized without knowing the question?}
+
+\subsection{Submission - IMPORTANT, PLEASE
+READ}\label{submission---important-please-read}
+
+For this assignment and future assignments (homework and projects) you
+will also submit your free response and plotting questions to
+gradescope. To do this, you can download as PDF
+(\texttt{File-\textgreater{}Download\ As-\textgreater{}PDF\ via\ Latex\ (.pdf)}).
+You are responsible for submitting and tagging your answers in
+gradescope. For each free response and plotting question, please
+include:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Relevant code used to generate the plot or inform your insights
+\item
+  The written free response or plot
+\end{enumerate}
+
+We are doing this to make it easier on our graders and for you, in the
+case you need to submit a regrade request. Gradescope (as of now) is
+still better for manual grading.
+
+\subsubsection{Score breakdown}\label{score-breakdown}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Question & Points\tabularnewline
+\midrule
+\endhead
+Question 1a & 2\tabularnewline
+Question 1b & 1\tabularnewline
+Question 1c & 2\tabularnewline
+Question 2a & 2\tabularnewline
+Question 2b & 2\tabularnewline
+Question 2c & 2\tabularnewline
+Question 2d & 2\tabularnewline
+Question 3a & 5\tabularnewline
+Question 3b & 3\tabularnewline
+Question 3c & 2\tabularnewline
+Question 4a & 4\tabularnewline
+Question 4b & 3\tabularnewline
+Question 5a & 2\tabularnewline
+Question 5b & 2\tabularnewline
+Question 6a & 1\tabularnewline
+Question 6b & 4\tabularnewline
+Question 6c & 2\tabularnewline
+Total & 41\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Run this cell to set up your notebook.  Make sure ds100\PYZus{}utils.py is in this assignment\PYZsq{}s folder}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{zipfile}
+        \PY{k+kn}{from} \PY{n+nn}{pathlib} \PY{k}{import} \PY{n}{Path}
+        \PY{k+kn}{import} \PY{n+nn}{ds100\PYZus{}utils}
+        
+        \PY{c+c1}{\PYZsh{} Default plot configurations}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{150}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{Latex}\PY{p}{,} \PY{n}{Markdown}
+\end{Verbatim}
+
+
+    \subsection{Loading Bike Sharing Data}\label{loading-bike-sharing-data}
+
+The data we are exploring is data on bike sharing in Washington D.C.
+
+The variables in this data frame are defined as:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Variable\strut
+\end{minipage} & \begin{minipage}[b]{0.77\columnwidth}\raggedright\strut
+Description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+instant\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+record index\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+dteday\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+date\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+season\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+1. spring 2. summer 3. fall 4. winter\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+yr\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+year (0: 2011, 1:2012)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+mnth\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+month ( 1 to 12)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+hr\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+hour (0 to 23)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+holiday\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+whether day is holiday or not\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+weekday\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+day of the week\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+workingday\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+if day is neither weekend nor holiday\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+weathersit\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+1. clear or partly cloudy 2. mist and clouds 3. light snow or rain 4.
+heavy rain or snow\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+temp\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+normalized temperature in Celsius (divided by 41)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+atemp\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+normalized "feels-like" temperature in Celsius (divided by 50)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+hum\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+normalized percent humidity (divided by 100)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+windspeed\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+normalized wind speed (divided by 67)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+casual\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+count of casual users\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+registered\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+count of registered users\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+cnt\strut
+\end{minipage} & \begin{minipage}[t]{0.77\columnwidth}\raggedright\strut
+count of total rental bikes including casual and registered\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \subsubsection{Download the Data}\label{download-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Run this cell to download the data.  No further action is needed}
+        
+        \PY{n}{data\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://github.com/DS\PYZhy{}100/fa18/raw/gh\PYZhy{}pages/assets/datasets/hw2\PYZhy{}bikeshare.zip}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{file\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.zip}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{data\PYZus{}dir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{dest\PYZus{}path} \PY{o}{=} \PY{n}{ds100\PYZus{}utils}\PY{o}{.}\PY{n}{fetch\PYZus{}and\PYZus{}cache}\PY{p}{(}\PY{n}{data\PYZus{}url}\PY{o}{=}\PY{n}{data\PYZus{}url}\PY{p}{,} \PY{n}{data\PYZus{}dir}\PY{o}{=}\PY{n}{data\PYZus{}dir}\PY{p}{,} \PY{n}{file}\PY{o}{=}\PY{n}{file\PYZus{}name}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Saved at }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{dest\PYZus{}path}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{zipped\PYZus{}data} \PY{o}{=} \PY{n}{zipfile}\PY{o}{.}\PY{n}{ZipFile}\PY{p}{(}\PY{n}{dest\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{data\PYZus{}dir} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{zipped\PYZus{}data}\PY{o}{.}\PY{n}{extractall}\PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{p}{)}
+        
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extracted Files:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{data\PYZus{}dir}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using version already downloaded: Fri Sep 14 06:32:40 2018
+MD5 hash of file: 2bcd2ca89278a8230f4e9461455c0811
+Saved at data.zip
+Extracted Files:
+	 data/bikeshare.txt
+
+    \end{Verbatim}
+
+    \subsubsection{Examining the file
+contents}\label{examining-the-file-contents}
+
+Can you identify the file format? (No answer required.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Run this cell to look at the top of the file.  No further action is needed}
+        \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{ds100\PYZus{}utils}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{o}{/}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bikeshare.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{line}\PY{p}{,}\PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+instant,dteday,season,yr,mnth,hr,holiday,weekday,workingday,weathersit,temp,atemp,hum,windspeed,casual,registered,cnt
+1,2011-01-01,1,0,1,0,0,6,0,1,0.24,0.2879,0.81,0,3,13,16
+2,2011-01-01,1,0,1,1,0,6,0,1,0.22,0.2727,0.8,0,8,32,40
+3,2011-01-01,1,0,1,2,0,6,0,1,0.22,0.2727,0.8,0,5,27,32
+4,2011-01-01,1,0,1,3,0,6,0,1,0.24,0.2879,0.75,0,3,10,13
+
+    \end{Verbatim}
+
+    \subsubsection{Size}\label{size}
+
+Is the file big? How many records do we expect to find? (No answers
+required.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Run this cell to view some metadata.  No further action is needed}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Size:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{o}{/}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bikeshare.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{stat}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{st\PYZus{}size}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bytes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Line Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ds100\PYZus{}utils}\PY{o}{.}\PY{n}{line\PYZus{}count}\PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{o}{/}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bikeshare.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lines}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Size: 1156736 bytes
+Line Count: 17380 lines
+
+    \end{Verbatim}
+
+    \subsubsection{Loading the data}\label{loading-the-data}
+
+The following code loads the data into a Pandas DataFrame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Run this cell to load the data.  No further action is needed}
+        \PY{n}{bike} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{o}{/}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bikeshare.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{bike}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    instant      dteday  season  yr  mnth  hr  holiday  weekday  workingday  \textbackslash{}
+        0        1  2011-01-01       1   0     1   0        0        6           0   
+        1        2  2011-01-01       1   0     1   1        0        6           0   
+        2        3  2011-01-01       1   0     1   2        0        6           0   
+        3        4  2011-01-01       1   0     1   3        0        6           0   
+        4        5  2011-01-01       1   0     1   4        0        6           0   
+        
+           weathersit  temp   atemp   hum  windspeed  casual  registered  cnt  
+        0           1  0.24  0.2879  0.81        0.0       3          13   16  
+        1           1  0.22  0.2727  0.80        0.0       8          32   40  
+        2           1  0.22  0.2727  0.80        0.0       5          27   32  
+        3           1  0.24  0.2879  0.75        0.0       3          10   13  
+        4           1  0.24  0.2879  0.75        0.0       0           1    1  
+\end{Verbatim}
+            
+    Below, we show the shape of the file. You should see that the size of
+the dataframe matches the number of lines in the file, minus the header
+row.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{bike}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (17379, 17)
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{1: Data Preparation}\label{data-preparation}
+
+A few of the variables that are numeric/integer actually encode
+categorical data. These include \texttt{holiday}, \texttt{weekday},
+\texttt{workingday}, and \texttt{weathersit}. In the following problem,
+we will convert these four variables to strings specifying the
+categories. In particular, use 3-letter labels (\texttt{Sun},
+\texttt{Mon}, \texttt{Tue}, \texttt{Wed}, \texttt{Thu}, \texttt{Fri},
+and \texttt{Sat}) for \texttt{weekday}. You may simply use
+\texttt{yes}/\texttt{no} for \texttt{holiday} and \texttt{workingday}.
+
+In this exercise we will \emph{mutate} the data frame,
+\textbf{overwriting the corresponding variables in the data frame.}
+However, our notebook will effectively document this in-place data
+transformation for future readers. Make sure to leave the underlying
+datafile \texttt{bikeshare.txt} unmodified.
+
+    \subsubsection{Question 1}\label{question-1}
+
+\paragraph{\texorpdfstring{Question 1a (Decoding \texttt{weekday},
+\texttt{workingday}, and
+\texttt{weathersit})}{Question 1a (Decoding weekday, workingday, and weathersit)}}\label{question-1a-decoding-weekday-workingday-and-weathersit}
+
+Decode the \texttt{holiday}, \texttt{weekday}, \texttt{workingday}, and
+\texttt{weathersit} fields:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{holiday}: Convert to \texttt{yes} and \texttt{no}. Hint: There
+  are fewer holidays...
+\item
+  \texttt{weekday}: It turns out that Monday is the day with the most
+  holidays. Mutate the
+  \texttt{\textquotesingle{}weekday\textquotesingle{}} column to use the
+  3-letter label (\texttt{\textquotesingle{}Sun\textquotesingle{}},
+  \texttt{\textquotesingle{}Mon\textquotesingle{}},
+  \texttt{\textquotesingle{}Tue\textquotesingle{}},
+  \texttt{\textquotesingle{}Wed\textquotesingle{}},
+  \texttt{\textquotesingle{}Thu\textquotesingle{}},
+  \texttt{\textquotesingle{}Fri\textquotesingle{}}, and
+  \texttt{\textquotesingle{}Sat\textquotesingle{}} ...) instead of its
+  current numerical values. Assume \texttt{0} corresponds to
+  \texttt{Sun}, \texttt{1} to \texttt{Mon} and so on.
+\item
+  \texttt{workingday}: Convert to \texttt{yes} and \texttt{no}.
+\item
+  \texttt{weathersit}: You should replace each value with one of
+  \texttt{Clear}, \texttt{Mist}, \texttt{Light}, or \texttt{Heavy}.
+\end{enumerate}
+
+Note if you want to revert the changes run the cell that reloads the
+csv.
+
+\textbf{Hint:} One approach is to use the replace method of the pandas
+DataFrame class. We haven't discussed how to do this so you'll need to
+look at the documentation. The most concise way is with the approach
+described in the documentation as "nested-dictonaries", though there are
+many possible solutions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Modify holiday weekday, workingday, and weathersit here}
+        \PY{c+c1}{\PYZsh{} Hint: one strategy involves df.replace(...)}
+        
+        \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+        \PY{c+c1}{\PYZsh{} Convert holiday}
+        \PY{n}{holiday\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{bike}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{holiday}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{holiday\PYZus{}dict}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert weekday}
+        \PY{n}{weekday\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{bike}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{weekday\PYZus{}dict}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert workingday}
+        \PY{n}{workingday\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{bike}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{workingday\PYZus{}dict}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert weathersit}
+        \PY{n}{weathersit\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clear or partly cloudy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mist and clouds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{light snow or rain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heavy rain or snow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{bike}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weathersit}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{weathersit\PYZus{}dict}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{assert} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{bike}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{)}
+        \PY{k}{assert} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{holiday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dtype} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{dtype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{assert} \PY{n+nb}{list}\PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{holiday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{370}\PY{p}{:}\PY{l+m+mi}{375}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{k}{assert} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dtype} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{dtype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{assert} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dtype} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{dtype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{assert} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weathersit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dtype} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{dtype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Question 1b (Holidays)}\label{question-1b-holidays}
+
+How many entries in the data correspond to holidays? Set the variable
+\texttt{num\_holidays} to this value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{num\PYZus{}holidays} \PY{o}{=} \PY{n}{bike}\PY{p}{[}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{holiday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{assert} \PY{l+m+mi}{400} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{num\PYZus{}holidays} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{550}
+\end{Verbatim}
+
+
+    \paragraph{Question 1c (Computing Daily Total
+Counts)}\label{question-1c-computing-daily-total-counts}
+
+The granularity of this data is at the hourly level. However, for some
+of the analysis we will also want to compute daily statistics. In
+particular, in the next few questions we will be analyzing the daily
+number of registered and unregistered users.
+
+Construct a data frame with the following columns: * \texttt{casual}:
+total number of casual riders for each day * \texttt{registered}: total
+number of registered riders for each day * \texttt{workingday}: whether
+that day is a working day or not (\texttt{yes} or \texttt{no})
+
+\textbf{Hint}: \texttt{groupby} and \texttt{agg}. For the \texttt{agg}
+method, please check the
+\href{https://pandas.pydata.org/pandas-docs/stable/generated/pandas.core.groupby.DataFrameGroupBy.agg.html}{documentation}
+for examples on applying different aggregations per column. If you use
+the capability to do different aggregations by column, you can do this
+task with a single call to \texttt{groupby} and \texttt{agg}. For the
+\texttt{workingday} column we can take any of the values since we are
+grouping by the day, thus the value will be the same within each group.
+Take a look at the \texttt{\textquotesingle{}first\textquotesingle{}} or
+\texttt{\textquotesingle{}last\textquotesingle{}} aggregation functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{bike}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    instant      dteday  season  yr  mnth  hr holiday weekday workingday  \textbackslash{}
+         0        1  2011-01-01       1   0     1   0      no     Sat         no   
+         1        2  2011-01-01       1   0     1   1      no     Sat         no   
+         2        3  2011-01-01       1   0     1   2      no     Sat         no   
+         3        4  2011-01-01       1   0     1   3      no     Sat         no   
+         4        5  2011-01-01       1   0     1   4      no     Sat         no   
+         
+                        weathersit  temp   atemp   hum  windspeed  casual  registered  \textbackslash{}
+         0  clear or partly cloudy  0.24  0.2879  0.81        0.0       3          13   
+         1  clear or partly cloudy  0.22  0.2727  0.80        0.0       8          32   
+         2  clear or partly cloudy  0.22  0.2727  0.80        0.0       5          27   
+         3  clear or partly cloudy  0.24  0.2879  0.75        0.0       3          10   
+         4  clear or partly cloudy  0.24  0.2879  0.75        0.0       0           1   
+         
+            cnt  
+         0   16  
+         1   40  
+         2   32  
+         3   13  
+         4    1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n}{daily\PYZus{}counts} \PY{o}{=} \PY{n}{bike}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mf}{848.0}
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mf}{471450.0}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{2: Exploring the Distribution of
+Riders}\label{exploring-the-distribution-of-riders}
+
+Let's begin by comparing the distribution of the daily counts of casual
+and registered riders.
+
+    \subsubsection{Question 2}\label{question-2}
+
+\paragraph{Question 2a}\label{question-2a}
+
+Use the
+\href{https://seaborn.pydata.org/generated/seaborn.distplot.html}{\texttt{sns.distplot}}
+function to create a plot that overlays the distribution of the daily
+counts of \texttt{casual} and \texttt{registered} users. The temporal
+granularity of the records should be daily counts, which you should have
+after completing question 1c.
+
+Include a legend, xlabel, ylabel, and title. You may want to look at the
+\href{https://seaborn.pydata.org/tutorial/distributions.html}{seaborn
+plotting tutorial} if you're not sure how to add these. After creating
+the plot, look at it and make sure you understand what the plot is
+actually telling us, e.g on a given day, the most likely number of
+registered riders we expect is \textasciitilde{}4000, but it could be
+anywher from almost none to 7000.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rider Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution Comparison of Casual vs Registered Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rider Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 2b}\label{question-2b}
+
+In the cell below, descibe the differences you notice between the
+density curves for casual and registered riders. Consider concepts such
+as modes, symmetry, skewness, tails, gaps and outliers. Include a
+comment on the spread of the distributions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{q2b} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{The casual density curve has more modes with smaller rider count and is right skewed, the main rider count lies in}
+         \PY{l+s+s2}{between 200 \PYZhy{} 1600. However, the registered density curve is symmetry with the median at around 4000 and is kind like}
+         \PY{l+s+s2}{a Gaussian distribution.}
+         
+         \PY{l+s+s2}{As for the variance, the casual density curve has a bigger variance and the registered curve has a smaller one.}
+         
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q2b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+The casual density curve has more modes with smaller rider count and is right skewed, the main rider count lies in
+between 200 - 1600. However, the registered density curve is symmetry with the median at around 4000 and is kind like
+a Gaussian distribution.
+
+As for the variance, the casual density curve has a bigger variance and the registered curve has a smaller one.
+
+
+
+    \end{Verbatim}
+
+    \subsubsection{Question 2c}\label{question-2c}
+
+The density plots do not show us how the daily counts for registered and
+casual riders vary together. Use
+\href{https://seaborn.pydata.org/generated/seaborn.lmplot.html}{\texttt{sns.lmplot}}
+to make a scatter plot to investigate the relationship between casual
+and registered counts. The \texttt{lmplot} function will also try to
+draw a linear regression line (just as you saw in Data 8). Color the
+points in the scatterplot according to whether or not the day is working
+day. There are many points in the scatter plot so make them small to
+help with over plotting. Also make sure to set \texttt{fit\_reg=True} to
+generate the linear regression line. You can set the \texttt{height}
+parameter if you want to adjust the size of the \texttt{lmplot}. Make
+sure to include a title.
+
+\textbf{Hints:} * Checkout this helpful
+\href{https://seaborn.pydata.org/tutorial/regression.html}{tutorial on
+\texttt{lmplot}}.
+
+\begin{itemize}
+\tightlist
+\item
+  You will need to set \texttt{x}, \texttt{y}, and \texttt{hue} and the
+  \texttt{scatter\_kws}.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{workingday\PYZus{}frame} \PY{o}{=} \PY{n}{bike}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{workdingday} \PY{o}{=} \PY{n}{workingday\PYZus{}frame}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Make the font size a bit bigger}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{)}
+         \PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{workdingday}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bike}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{scatter\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Comparison of Casual vs Registered Riders on Working and Non\PYZhy{}working Days}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 2d}\label{question-2d}
+
+What does this scatterplot seem to reveal about the relationship (if
+any) between casual and registered riders and whether or not the day is
+on the weekend?
+
+Why might we be concerned with overplotting in examining this
+relationship? By "overplotting", we're referring to the term used in
+chapter 6.5 of the
+\href{http://www.textbook.ds100.org/ch/06/viz_principles_2.html}{textbook}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{q2d} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{For both working and non\PYZhy{}working days, there is a positive correlation between causal and registered people. For }
+         \PY{l+s+s2}{working days, the correaltion is stronger, and weaker for non\PYZhy{}working days.}
+         
+         \PY{l+s+s2}{It}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s difficult to tell where the data lies, making it extremely difficult to see the density of joint counts.}
+         
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q2d}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+For both working and non-working days, there is a positive correlation between causal and registered people. For 
+working days, the correaltion is stronger, and weaker for non-working days.
+
+It's difficult to tell where the data lies, making it extremely difficult to see the density of joint counts.
+
+
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{3: Visualization}\label{visualization}
+
+\subsubsection{Question 3}\label{question-3}
+
+\paragraph{Question 3a Bivariate Kernel Density
+Plot}\label{question-3a-bivariate-kernel-density-plot}
+
+The scatter plot you made in question 2c makes clear the separation
+between the work days and non-work days. However, the overplotting makes
+it difficult to see the density of the joint counts. To address this
+issue, let's try visualizing the data with another technique, the
+bivariate kernel density estimate.
+
+You will want to read up on the documentation for \texttt{sns.kdeplot}
+which can be found at
+https://seaborn.pydata.org/generated/seaborn.kdeplot.html
+
+The result we wish to achieve should be a plot that looks something like
+this:
+
+You can think of this plot as an overhead countour or topographical map,
+where the "high" regions are those with more data points, and "low"
+regions are those with fewer data points.
+
+    A basic kde plot of all the data is quite easy to generate. However,
+this plot includes both weekend and weekday data, which isn't what we
+want (see example figure above).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KDE Plot Comparison of Registered vs Casual Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Generating the plot with weekend and weekday separated can be
+complicated so we will provide a walkthrough below, feel free to use
+whatever method you wish however if you do not want to follow the
+walkthrough.
+
+\textbf{Hints:} * You can use \texttt{loc} with a boolean array and
+column names at the same time, as seen in
+\href{https://docs.google.com/presentation/d/1qMRtloXaccvJLfyZckn-UpuG0Prb1XtJHLPWQX2OMSo/edit\#slide=id.g4114e65f62_0_404}{lecture
+2}. * You will need to call kdeplot twice. * Check out this
+\href{http://financeandpython.com/SeabornDataVisualization/8/3.html}{tutorial}
+to see an example of how to set colors for each dataset and how to
+create a legend. The legend part uses some weird matplotlib syntax that
+we haven't learned! You'll probably find creating the legend annoying,
+but it's a good exercise to learn how to use examples to get the look
+you want. * You will want to set the \texttt{cmap} parameter of
+\texttt{kdeplot} to \texttt{"Reds"} and \texttt{"Blues"} (or whatever
+two contrasting colors you'd like).
+
+After you get your plot working, experiment by setting
+\texttt{shade=True} in \texttt{kdeplot} to see the difference between
+the shaded and unshaded version. Please submit your work with
+\texttt{shade=False}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{patches} \PY{k}{as} \PY{n+nn}{mpatches}  \PY{c+c1}{\PYZsh{} see the tutorial for how we use mpatches to generate this figure!}
+         
+         \PY{c+c1}{\PYZsh{} Set \PYZsq{}is\PYZus{}workingday\PYZsq{} to a boolean array that is true for all working\PYZus{}days}
+         \PY{n}{is\PYZus{}workingday} \PY{o}{=} \PY{n}{daily\PYZus{}counts}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} Bivariate KDEs require two data inputs. }
+         \PY{c+c1}{\PYZsh{} In this case, we will need the daily counts for casual and registered riders on weekdays}
+         \PY{c+c1}{\PYZsh{} Hint: use loc and is\PYZus{}workingday to splice out the relevant rows and column (casual/registered). }
+         \PY{n}{casual\PYZus{}weekday} \PY{o}{=} \PY{n}{daily\PYZus{}counts}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{is\PYZus{}workingday}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{registered\PYZus{}weekday} \PY{o}{=} \PY{n}{daily\PYZus{}counts}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{is\PYZus{}workingday}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Use sns.kdeplot on the two variables above to plot the bivariate KDE for weekday rides}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{casual\PYZus{}weekday}\PY{p}{,} \PY{n}{registered\PYZus{}weekday}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Workday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Repeat the same steps above but for rows corresponding to non\PYZhy{}workingdays}
+         \PY{n}{casual\PYZus{}weekend} \PY{o}{=} \PY{n}{daily\PYZus{}counts}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{is\PYZus{}workingday}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{registered\PYZus{}weekend} \PY{o}{=} \PY{n}{daily\PYZus{}counts}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{is\PYZus{}workingday}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Use sns.kdeplot on the two variables above to plot the bivariate KDE for weekday rides}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{casual\PYZus{}weekend}\PY{p}{,} \PY{n}{registered\PYZus{}weekend}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Non\PYZhy{}workday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KDE Plot Comparison of Registered vs Casual Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Workday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Non\PYZhy{}workday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 3b}\label{question-3b}
+
+What does the contour plot suggest about the relationship between casual
+and registered riders for work days? For non-work days? Do you feel like
+it's easier to see the relationship on this countour plot, or on the
+plot you created for 2c? Why?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{q3b} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{The contour plot shows a strong positive correlation between causal and registered riders for work days and a }
+         \PY{l+s+s2}{slightlyweeker positive correlation for non\PYZhy{}work days.}
+         
+         \PY{l+s+s2}{I think it}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s easy to see the relationship on the plot created for 2c, because on plot 2c, there is a linear }
+         \PY{l+s+s2}{regression line which directly shows us the relation between the 2 variables. But in the countour plot, we need }
+         \PY{l+s+s2}{to see it ourselves.}
+         
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q3b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+The contour plot shows a strong positive correlation between causal and registered riders for work days and a 
+slightlyweeker positive correlation for non-work days.
+
+I think it's easy to see the relationship on the plot created for 2c, because on plot 2c, there is a linear 
+regression line which directly shows us the relation between the 2 variables. But in the countour plot, we need 
+to see it ourselves.
+
+
+
+    \end{Verbatim}
+
+    \paragraph{Question 3c}\label{question-3c}
+
+As an alternative approach to visualizing the data, construct the
+following set of three plots where the main plot shows the contours of
+the kernel density estimate of daily counts for registered and casual
+riders plotted together, and the two "margin" plots (at the top and
+right of the figure) provide the univariate kernel density estimate of
+each of these variables. Note that this plot makes it harder see the
+linear relationships between casual and registered for the two different
+conditions (weekday vs. weekend).
+
+\textbf{Hints}: * The
+\href{https://seaborn.pydata.org/tutorial/distributions.html}{seaborn
+plotting tutorial} has examples that may be helpful. * Take a look at
+\texttt{sns.jointplot} and its \texttt{kind} parameter. *
+\texttt{set\_axis\_labels} can be used to rename axes on the contour
+plot. * \texttt{plt.suptitle} from lab 1 can be handy for setting the
+title where you want. * \texttt{plt.subplots\_adjust(top=0.9)} can help
+if your title overlaps with your plot
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{jointplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{daily\PYZus{}counts}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kde}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{g}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}labels}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Count Casual Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Daily Count Registered Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KDE Contours of Casual vs Registered Rider Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{4: Exploring Ride Sharing and
+Time}\label{exploring-ride-sharing-and-time}
+
+\subsubsection{Question 4}\label{question-4}
+
+\paragraph{Question 4a}\label{question-4a}
+
+Plot number of riders for each hour of each day in the month of June in
+2011.
+
+Make sure to add descriptive x-axis and y-axis labels and create a
+legend to distinguish the line for casual riders and the line for
+registered riders. The end result should look like the figure below. The
+shaded region is a bootstrap confidence interval similar to what you
+learned about in Data 8.
+
+Make sure to include xlabel, ylabel, a legend, and a title.
+
+\textbf{Hints:} * Add a new Series to the \texttt{bike} datafame
+correpsonding to the day. You can do something similar to what you did
+in \texttt{hw1} when you created the \texttt{postal\_code\_5} Seres. *
+Make sure your day series is of type int. One way is to use the
+\texttt{map} method of the Series class, i.e. \texttt{s.map(int)}. * Use
+\texttt{sns.lineplot}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{bike\PYZus{}june\PYZus{}2011} \PY{o}{=} \PY{n}{bike}\PY{p}{[}\PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mnth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{]}
+         \PY{n}{bike\PYZus{}june\PYZus{}2011}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{bike\PYZus{}june\PYZus{}2011}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/srv/conda/envs/data100/lib/python3.6/site-packages/ipykernel\_launcher.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{bike\PYZus{}june\PYZus{}2011}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{bike\PYZus{}june\PYZus{}2011}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{bike\PYZus{}june\PYZus{}2011}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Riders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count of Casual vs Registered Riders by Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 4b}\label{question-4b}
+
+This plot has several interesting features. How do the number of casual
+and registered riders compare for different days of the month? What is
+an interesting trend and pattern you notice between the lines? Why do
+you think the confidence interval for the registered riders is, on
+average, wider than the confidence interval for casual riders?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{q4b} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{First, both lines go up and down during the month kind with a period of around a week(7 days). But the casual }
+         \PY{l+s+s2}{riders are less than that of registered. }
+         
+         \PY{l+s+s2}{One interesting trend is that when registered number of riders is at the bottom, the number of casual riders is }
+         \PY{l+s+s2}{nearly exactly at the top. }
+         
+         \PY{l+s+s2}{As for the confidence interval, the registered rider curve has a bigger variance, so the confidence interval is }
+         \PY{l+s+s2}{wider.}
+         
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q4b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+First, both lines go up and down during the month kind with a period of around a week(7 days). But the casual 
+riders are less than that of registered. 
+
+One interesting trend is that when registered number of riders is at the bottom, the number of casual riders is 
+nearly exactly at the top. 
+
+As for the confidence interval, the registered rider curve has a bigger variance, so the confidence interval is 
+wider.
+
+
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{5: Understanding Daily
+Patterns}\label{understanding-daily-patterns}
+
+\subsubsection{Question 5}\label{question-5}
+
+\paragraph{Question 5a}\label{question-5a}
+
+Let's examine the behavior of riders by plotting the average number of
+riders for each hour of the day over the \textbf{entire dataset} (not
+just June 2011), stratified by rider type.
+
+Your plot should look like the following:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{bike\PYZus{}by\PYZus{}hour} \PY{o}{=} \PY{n}{bike}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} bike\PYZus{}by\PYZus{}hour[\PYZsq{}hr\PYZsq{}].map(int)}
+         \PY{n}{bike\PYZus{}by\PYZus{}hour}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{bike\PYZus{}by\PYZus{}hour}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}         instant    season        yr      mnth      temp     atemp       hum  \textbackslash{}
+         hr                                                                            
+         0   8677.683196  2.500000  0.502755  6.534435  0.467410  0.451105  0.691019   
+         1   8672.640884  2.497238  0.502762  6.526243  0.459365  0.443289  0.704213   
+         2   8746.538462  2.511888  0.507692  6.567832  0.454573  0.439184  0.716825   
+         3   8819.661406  2.539455  0.509326  6.645624  0.453113  0.438396  0.729785   
+         4   8892.555237  2.552367  0.516499  6.664275  0.446628  0.432549  0.742367   
+         
+             windspeed     casual  registered        cnt  
+         hr                                               
+         0    0.161758  10.158402   43.739669  53.898072  
+         1    0.158659   6.504144   26.871547  33.375691  
+         2    0.154519   4.772028   18.097902  22.869930  
+         3    0.150929   2.715925    9.011478  11.727403  
+         4    0.155813   1.253945    5.098996   6.352941  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} bike\PYZus{}by\PYZus{}hour = bike.groupby(\PYZsq{}hr\PYZsq{}).mean()}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{bike\PYZus{}by\PYZus{}hour}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{bike\PYZus{}by\PYZus{}hour}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{bike\PYZus{}by\PYZus{}hour}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{bike\PYZus{}by\PYZus{}hour}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour of the Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Count of Casual vs Registered by Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 5b}\label{question-5b}
+
+What can you observe from the plot? Hypothesize about the meaning of the
+peaks in the registered riders' distribution.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{q5b} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{The registerd riders have a bigger variance with 2 peaks, while the causal riders vary less. We can observe that the }
+         \PY{l+s+s2}{2 peaks}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ corresponding time are around 8 and 17, which just coincides with the commute time. So we may safely assume}
+         \PY{l+s+s2}{that it}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s because some people tend to use bikes to go to work and go back home.}
+         
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q5b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+The registerd riders have a bigger variance with 2 peaks, while the causal riders vary less. We can observe that the 
+2 peaks' corresponding time are around 8 and 17, which just coincides with the commute time. So we may safely assume
+that it's because some people tend to use bikes to go to work and go back home.
+
+
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{6: Exploring Ride Sharing and
+Weather}\label{exploring-ride-sharing-and-weather}
+
+Now let's examine how the weather is affecting rider's behavior. First
+let's look at how the proportion of casual riders changes as weather
+changes.
+
+\subsubsection{Question 6}\label{question-6}
+
+\paragraph{Question 6a}\label{question-6a}
+
+Create a new column \texttt{prop\_casual} in the \texttt{bike} dataframe
+representing the proportion of casual riders out of all riders.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prop\PYZus{}casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{assert} \PY{n+nb}{int}\PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prop\PYZus{}casual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2991}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} BEGIN HIDDEN TEST}
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prop\PYZus{}casual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{==} \PY{l+m+mf}{0.17}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END HIDDEN TEST}
+\end{Verbatim}
+
+
+    \paragraph{Question 6b}\label{question-6b}
+
+In order to examine the relationship between proportion of casual riders
+and temperature, we can create a scatterplot using
+\texttt{sns.scatterplot}. We can even use color/hue to encode the
+information about day of week. Run the cell below, and you'll see we end
+up with a big mess that is impossible to interpret.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{bike}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prop\PYZus{}casual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weekday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We could attempt linear regression using \texttt{sns.lmplot} as shown
+below, which hint at some relationships between temperature and
+proportional casual, but the plot is still fairly unconvincing.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{bike}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prop\PYZus{}casual}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weekday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scatter\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Proportion of Casual Riders by Weekday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A better approach is to use the "Local Smoothing" technique described in
+lecture. We saw an example of this with cherry blossom race times. As a
+reminder, the basic idea is that for each x value, we compute some sort
+of representative y value that captures the data close to that x value.
+One technique for local smoothing is "Locally Weighted Scatterplot
+Smoothing" or LOWESS. An example is below. The red curve shown is a
+smoothed version of the scatterplot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{nonparametric}\PY{n+nn}{.}\PY{n+nn}{smoothers\PYZus{}lowess} \PY{k}{import} \PY{n}{lowess}
+         \PY{c+c1}{\PYZsh{} Make noisy data}
+         \PY{n}{xobs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{4.0} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{yobs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{xobs}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.0}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{xobs}\PY{p}{,} \PY{n}{yobs}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Raw Data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Predict \PYZsq{}smoothed\PYZsq{} valued for observations}
+         \PY{n}{ysmooth} \PY{o}{=} \PY{n}{lowess}\PY{p}{(}\PY{n}{yobs}\PY{p}{,} \PY{n}{xobs}\PY{p}{,} \PY{n}{return\PYZus{}sorted}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{xobs}\PY{p}{,} \PY{n}{ysmooth}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Smoothed Estimator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In our case with the bike ridership data, we want 7 curves, one for each
+day of the week. The x-axis will be the temperature and the y-axis will
+be a smoothed version of the proportion of casual riders.
+
+You should use
+\href{http://www.statsmodels.org/dev/generated/statsmodels.nonparametric.smoothers_lowess.lowess.html}{\texttt{statsmodels.nonparametric.smoothers\_lowess.lowess}}
+just like the example above. Unlike the example above, plot ONLY the
+lowess curve. Do not plot the actual data, which would result in
+overplotting. For this problem, the simplest way is to use a loop.
+
+\textbf{Hints:} * Start by just plotting only one day of the week to
+make sure you can do that first.
+
+\begin{itemize}
+\item
+  lowess expects y coordinate first, then x coordinate.
+\item
+  Look at the top of this homework notebook for a description of the
+  temperature field to know how to convert to fahrenheit. By default,
+  the temperature field ranges from 0.0 to 1.0.
+\end{itemize}
+
+Note: If you prefer putting your plot in Celsius, that's fine as well!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp\PYZus{}fahr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{41} \PY{o}{*}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{32}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{bike}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}    instant      dteday  season  yr  mnth  hr holiday weekday workingday  \textbackslash{}
+         0        1  2011-01-01       1   0     1   0      no     Sat         no   
+         1        2  2011-01-01       1   0     1   1      no     Sat         no   
+         2        3  2011-01-01       1   0     1   2      no     Sat         no   
+         3        4  2011-01-01       1   0     1   3      no     Sat         no   
+         4        5  2011-01-01       1   0     1   4      no     Sat         no   
+         
+                        weathersit  temp   atemp   hum  windspeed  casual  registered  \textbackslash{}
+         0  clear or partly cloudy  0.24  0.2879  0.81        0.0       3          13   
+         1  clear or partly cloudy  0.22  0.2727  0.80        0.0       8          32   
+         2  clear or partly cloudy  0.22  0.2727  0.80        0.0       5          27   
+         3  clear or partly cloudy  0.24  0.2879  0.75        0.0       3          10   
+         4  clear or partly cloudy  0.24  0.2879  0.75        0.0       0           1   
+         
+            cnt  prop\_casual  temp\_fahr  
+         0   16     0.187500     49.712  
+         1   40     0.200000     48.236  
+         2   32     0.156250     48.236  
+         3   13     0.230769     49.712  
+         4    1     0.000000     49.712  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{nonparametric}\PY{n+nn}{.}\PY{n+nn}{smoothers\PYZus{}lowess} \PY{k}{import} \PY{n}{lowess}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         
+         \PY{c+c1}{\PYZsh{} Predict \PYZsq{}smoothed\PYZsq{} valued for observations}
+         \PY{n}{weekday} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{day} \PY{o+ow}{in} \PY{n}{weekday}\PY{p}{:}
+             \PY{n}{ysmooth} \PY{o}{=} \PY{n}{lowess}\PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prop\PYZus{}casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                          \PY{n}{bike}\PY{p}{[}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp\PYZus{}fahr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{return\PYZus{}sorted}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{bike}\PY{p}{[}\PY{n}{bike}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp\PYZus{}fahr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ysmooth}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{day}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature(Fahrenheit)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Casual Rider Proportion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature vs Casual Rider Proportion by Weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 6c}\label{question-6c}
+
+What do you see from the curve plot? How is \texttt{prop\_casual}
+changing as a function of temperature? Do you notice anything else
+interesting?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{q6c} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{Generally speaking, the casual rider proportion has a positive correlation with temperature. That means the casual}
+         \PY{l+s+s2}{rider proportion goes up with temperature going up. }
+         
+         \PY{l+s+s2}{I think it}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s probably because high temperature typically means good weather, then people tend to do outdoor }
+         \PY{l+s+s2}{activities which may involve bikes. Since this is not a routine, it means the casual rider proportion will }
+         \PY{l+s+s2}{go up on these days.}
+         
+         \PY{l+s+s2}{Another interesting fact is that at weekends, the casual rider has a bigger proportion which may also due to }
+         \PY{l+s+s2}{outdoor activities involving bikes. }
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q6c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+Generally speaking, the casual rider proportion has a positive correlation with temperature. That means the casual
+rider proportion goes up with temperature going up. 
+
+I think it's probably because high temperature typically means good weather, then people tend to do outdoor 
+activities which may involve bikes. Since this is not a routine, it means the casual rider proportion will 
+go up on these days.
+
+Another interesting fact is that at weekends, the casual rider has a bigger proportion which may also due to 
+outdoor activities involving bikes. 
+
+
+    \end{Verbatim}
+
+    \subsection{Submission - IMPORTANT, PLEASE
+READ}\label{submission---important-please-read}
+
+For this assignment and future assignments (homework and projects) you
+will also submit your free response and plotting questions to
+gradescope. To do this, you can download as PDF
+(\texttt{File-\textgreater{}Download\ As-\textgreater{}PDF\ via\ Latex\ (.pdf)}).
+You are responsible for submitting and tagging your answers in
+gradescope. For each free response and plotting question, please
+include:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Relevant code used to generate the plot or inform your insights
+\item
+  The written free response or plot
+\end{enumerate}
+
+We are doing this to make it easier on our graders and for you, in the
+case you need to submit a regrade request. Gradescope (as of now) is
+still better for manual grading.
+
+    \subsection{Submission}\label{submission}
+
+You're done!
+
+Before submitting this assignment, ensure to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Restart the Kernel (in the menubar, select
+  Kernel-\textgreater{}Restart \& Run All)
+\item
+  Validate the notebook by clicking the "Validate" button
+\end{enumerate}
+
+Finally, make sure to \textbf{submit} the assignment via the Assignments
+tab in Datahub
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
