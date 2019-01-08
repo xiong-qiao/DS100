@@ -47,7 +47,7 @@ This is the repo of all work done during the DS100 course at UC Berkeley, Fall 2
 **Project2**: NYC Taxi Rides(The Data Science Lifecycle)
 - *Project2A*
   - Part1: Data Wrangling
-  - Part2: Part 2: EDA, Visualization, Feature Engineering
+  - Part2: EDA, Visualization, Feature Engineering
 
 - *Project2B*: 
   - Part3: NYC Accidents Data
